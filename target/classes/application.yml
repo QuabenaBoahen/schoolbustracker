@@ -1,0 +1,29 @@
+# See http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+spring:
+ thymeleaf:
+  cache: false
+  
+ jpa:
+  properties:
+   hibernate:
+    dialet: org.hibernate.dialect.MySQL5Dialect
+  hibernate:
+   ddl-auto: update
+   naming: 
+     strategy: org.hibernate.cfg.ImprovedNamingStrategy
+  show-sql: true
+       
+ datasource: 
+  driver-class-name: org.h2.Driver
+  url: jdbc:h2:mem:bus_tracking_db
+  username: sa
+  password:
+   
+server:
+ port: 8081
+  
+logging:
+ level:
+  jdbc: OFF
+   sqltiming:DEBUG
+   resultsettable:DEBUG

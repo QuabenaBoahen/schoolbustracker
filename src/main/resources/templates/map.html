@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="icon" th:href="@{/favicon.png}" />
+
+    <link rel="stylesheet" th:href="@{/vendor/materialize/css/materialize.css}" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" th:href="@{/app.css}" />
+
+    <title>Bus Tracking System | Buses Location</title>
+</head>
+<body>
+    <div class="navbar-fixed">
+        <nav>
+            <div class="container">
+                <a th:href="@{/}" class="brand-logo">busTracking</a>
+                <a href="#" data-activates="mobile-nav" class="button-collapse right"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                <li class="active"><a th:href="@{/map}">Show Map</a></li>
+                    <li ><a th:href="@{/}">Students</a></li>
+                    <li><a th:href="@{/parents}">Parents</a></li>
+                    <li><a th:href="@{/users}">Users</a></li>
+                </ul>
+                <ul id="mobile-nav" class="side-nav">
+                <li class="active"><a th:href="@{/map}">Show Map</a></li>
+                    <li><a th:href="@{/}">Students</a></li>
+                    <li><a th:href="@{/parents}">Parents</a></li>
+                    <li><a th:href="@{/users}">Users</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="search-bar container">
+        <div class="row">
+            <div class="col s12">
+                <form action="#" method="get">
+                    <div class="input-field">
+                        <input name="q" type="search" placeholder="Search for a bus..." required="required" autocomplete="off"/>
+                        <i class="material-icons">search</i>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="gifs container">
+        <div class="row">
+            <h3>Current Location of Buses</h3>
+    <div id="map"></div>
+        </div>
+    </div>
+    
+<script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.9.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.9.1/firebase-database.js"></script>
+    <script>
+ //Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyBmwMUNx-Ez_153zEtVU9kSLI_Bw5sQs9U",
+      authDomain: "bustrackingsystem-1aee0.firebaseapp.com",
+      databaseURL: "https://bustrackingsystem-1aee0.firebaseio.com",
+      projectId: "bustrackingsystem-1aee0",
+      storageBucket: "bustrackingsystem-1aee0.appspot.com",
+      messagingSenderId: "546115008344"
+    };
+ 
+    firebase.initializeApp(config);
+    
+    var latitude, longitude;
+    
+    var busLocation = firebase.database().ref('Location');
+        busLocation.on('value', function(snapshot) {
+      	  var location=snapshot.val();
+      	  latitude = Number(location.split(",")[0].trim());
+      	  longitude = Number(location.split(",")[1].trim());
+      	  initMap(latitude, longitude);
+    });
+        
+      function initMap(latitude, longitude) {
+        var currentLocation = {lat: latitude, lng: longitude};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: currentLocation
+        });
+        var marker = new google.maps.Marker({
+          position: currentLocation,
+          map: map,
+          icon: 'icons/bus.ico'
+        });
+        
+        marker.addListener('click', function() {
+        	alert("latitude: " + latitude + ", longitude: " + longitude)
+            //map.setZoom(8);
+            //map.setCenter(marker.getPosition());
+          });
+      } 
+    </script>
+ <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtZeGCdqb5KqAG5ROpf1d6oUdAVwzTpyc&callback=initMap">
+   </script>
+<script th:src="@{/vendor/jquery/jquery-1.11.3.js}"></script>
+<script th:src="@{/vendor/materialize/js/materialize.js}"></script>
+<script th:src="@{/app.js}"></script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="icon" th:href="@{/favicon.png}" />
+
+    <link rel="stylesheet" th:href="@{/bootstrap.min.css}" />
+    <link th:href="@{/jquery-datatables-editable/datatables.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/vendor/materialize/css/materialize.css}" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" th:href="@{/app.css}" />
+
+    <title>Bus Tracking System | Students</title>
+</head>
+<body>
+    <div class="navbar-fixed">
+        <nav>
+            <div class="container">
+                <a th:href="@{/}" class="brand-logo">busTracking</a>
+                <a href="#" data-activates="mobile-nav" class="button-collapse right"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                <li><a th:href="@{/map}">Show Map</a></li>
+                    <li class="active"><a th:href="@{/}">Students</a></li>
+                    <li><a th:href="@{/parents}">Parents</a></li>
+                    <li><a th:href="@{/users}">Users</a></li>
+                </ul>
+                <ul id="mobile-nav" class="side-nav">
+                <li><a th:href="@{/map}">Show Map</a></li>
+                    <li class="active"><a th:href="@{/}">Students</a></li>
+                    <li><a th:href="@{/parents}">Parents</a></li>
+                    <li><a th:href="@{/users}">Users</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="search-bar container">
+        <div class="row">
+            <div class="col s12">
+            <br/>
+              <a href="#" class="btn-large" data-toggle="modal" data-target="#studentModal">Add Student</a><br/>
+                    <div class="input-field">
+                        <h3>Details of Students</h3>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="gifs container">
+        <div class="row">
+            <form id="" method="post">
+								<table class="table table-bordered table-striped" id="datatable">
+									<thead>
+										<tr>
+											<th>Name of Student</th>
+											<th>Class</th>
+											<th>Date of Birth</th>
+											<th>Parent</th>
+											<th>Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="student : ${students}">
+											<input type="hidden" id="idField"/>
+											<input type="hidden" id="detailsField"/>
+											<input type="hidden" id="petitionedBody"/>
+											<td th:text="${student.firstName + ' ' + student.lastName + ' ' + student.otherNames}">Full name</td>
+											<td th:text="${student.studentClass}">class</td>
+											<td th:text="${student.dob}">dob</td>
+											<td th:text="${student.dob}">parent</td>
+											<td class="actions"><a href="#"
+												class="on-default edit-petition-body" data-toggle="modal" data-target="#studentModal">
+												<i class="material-icons">edit</i></a></td>
+										</tr> 
+									</tbody>
+									<input type="hidden" id="idFieldTopass" name="id"/> 
+									<input type="hidden" id="victoriousFlagStatus" name="victoriousFlagStatus"/>
+								</table>
+								</form>
+        </div>
+    </div>
+
+  <div class="modal fade" id="studentModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title title" style="color: #07689F;">Add New Student</h4>
+      </div>
+      <br/>
+          <form th:action="@{/students}" method="post" th:object="${student}">
+            <div class="table-responsive">
+				<table class="table table-borderless" style="border:none !important;">
+				           <tr>
+				           <input type="hidden" id="typeId" name="id"/>
+				           </tr>
+							  <tr>
+							  <td>
+							  <input type="text" class="form-control clear firstname" placeholder="First Name of student .." 
+							  id="firstname" th:field="*{firstName}" required /> 
+							  </td>
+					           </tr>
+					           <tr>
+							  <td>
+							  <input type="text" class="form-control clear lastname" placeholder="Last Name of student .." 
+							  id="lastname" th:field="*{lastName}" required /> 
+							  </td>
+					           </tr>
+					           <tr>
+							  <td>
+							  <input type="text" class="form-control clear othernames" placeholder="Other Names of student .." 
+							  id="othernames" th:field="*{otherNames}"/> 
+							  </td>
+					           </tr>
+					           <tr>
+							  <td>
+							  <input type="text" class="form-control clear studentClass" placeholder="Class of student .." 
+							  id="studentClass" th:field="*{studentClass}" required> 
+							  </td>
+					           </tr>
+					           <tr>
+							  <td>
+							  <input type="text" class="form-control clear dob" placeholder="DOB of student .." 
+							  id="dob" th:field="*{dob}" required> 
+							  </td>
+					           </tr>
+					           <tr>
+							  <td>
+							  <input type="text" class="form-control clear studentParent" placeholder="Parent Id of student .." 
+							  id="studentParent" th:field="*{parent.id}"> 
+							  </td>
+					           </tr>
+					         </table>	 
+			</div>
+		                   <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i> Save </button>
+                              </div>
+                              </form>
+                             </div>
+    </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+<script th:src="@{/vendor/jquery/jquery-1.11.3.js}"></script>
+<script th:src="@{/bootstrap.min.js}"></script>
+<script th:src="@{/jquery-datatables-editable/jquery.dataTables.js}"></script> 
+<script th:src="@{/jquery-datatables-editable/dataTables.bootstrap.js}"></script>
+<script th:src="@{/jquery-datatables-editable/datatables.editable.init.js}"></script>
+<script th:src="@{/vendor/materialize/js/materialize.js}"></script>
+<script th:src="@{/app.js}"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#datatable').dataTable();
+});
+</script>
+</body>
+</html>
