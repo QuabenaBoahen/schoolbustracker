@@ -1,27 +1,22 @@
 package com.rosebrakoh.model;
 
 import java.io.Serializable;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
 import org.hibernate.annotations.GenericGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Entity
-@Table(name="student")
-public class Student implements Serializable{
-	
+public class User implements Serializable{
 	/**
 	 * 
 	 */
@@ -30,15 +25,21 @@ public class Student implements Serializable{
 	@GeneratedValue(generator = "uuid2")
 	@GenericGenerator(name = "uuid2", strategy = "uuid2")
 	private String id;
-	private String firstName;
-	private String lastName;
-	private String otherNames;
-	private String studentClass;
-	private String dob;
-	@ManyToOne(cascade = CascadeType.DETACH, fetch=FetchType.LAZY)
-	private Parent parent;
-	@Transient
+	private String userId;
+	private String username;
+	private String password;
+	private boolean isAccountNonExpired;
+	private boolean isAccountNonLocked;
+	private boolean isCredentialsNonExpired;
+	public boolean isEnabled;
+	public boolean isVerified;
 	@OneToOne
-	private User user;
+	private Role role;
+	
+	public User(String userId, String username, String password) {
+		this.userId = userId;
+		this.username = username;
+		this.password=password;
+	}
 
 }

@@ -84,7 +84,7 @@
         <h4 class="modal-title title" style="color: #07689F;">Add New Parent</h4>
       </div>
       <br/>
-          <form th:action="@{/students}" method="post" th:object="${parent}">
+          <form th:action="@{/parents}" method="post" th:object="${parent}">
             <div class="table-responsive">
 				<table class="table table-borderless" style="border:none !important;">
 				           <tr>
@@ -102,8 +102,20 @@
 							  id="lastname" th:field="*{lastName}" required /> 
 							  </td>
 					           </tr>
+					            <tr>
+							  <td>
+							  <input type="text" class="form-control clear username" placeholder="Username of parent .." 
+							  id="username" th:field="*{user.username}" required> 
+							  </td>
+					           </tr>
+					            <tr>
+							  <td>
+							  <input type="password" class="form-control clear password" placeholder="Password of parent .." 
+							  id="password" th:field="*{user.password}" required> 
+							  </td>
+					           </tr>
 					         </table>	 
-			</div>
+			              </div>
 		                   <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
         <button type="submit" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i> Save </button>

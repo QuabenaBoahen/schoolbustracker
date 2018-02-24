@@ -67,7 +67,7 @@
 											<td th:text="${student.firstName + ' ' + student.lastName + ' ' + student.otherNames}">Full name</td>
 											<td th:text="${student.studentClass}">class</td>
 											<td th:text="${student.dob}">dob</td>
-											<td th:text="${student.dob}">parent</td>
+											<td th:text="${student.parent.lastName + ' ' + student.parent.firstName}">parent</td>
 											<td class="actions"><a href="#"
 												class="on-default edit-petition-body" data-toggle="modal" data-target="#studentModal">
 												<i class="material-icons">edit</i></a></td>
@@ -126,8 +126,20 @@
 					           </tr>
 					           <tr>
 							  <td>
-							  <input type="text" class="form-control clear studentParent" placeholder="Parent Id of student .." 
-							  id="studentParent" th:field="*{parent.id}"> 
+							  <input type="text" class="form-control clear studentParent" placeholder="Parent username .." 
+							  id="studentParent" th:field="*{parent.user.username}" required> 
+							  </td>
+					           </tr>
+					           <tr>
+							  <td>
+							  <input type="text" class="form-control clear username" placeholder="Username of student .." 
+							  id="username" th:field="*{user.username}" required> 
+							  </td>
+					           </tr>
+					            <tr>
+							  <td>
+							  <input type="password" class="form-control clear password" placeholder="Password of student .." 
+							  id="password" th:field="*{user.password}" required> 
 							  </td>
 					           </tr>
 					         </table>	 

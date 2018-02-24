@@ -6,7 +6,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import java.io.Serializable;
 import java.util.List;
@@ -35,5 +37,8 @@ public class Parent implements Serializable{
 	private String lastName;
 	@OneToMany(mappedBy="parent", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<Student> student;
+	@Transient
+	@OneToOne
+	private User user;
 
 }

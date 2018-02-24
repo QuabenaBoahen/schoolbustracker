@@ -2,9 +2,11 @@ package com.rosebrakoh.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.rosebrakoh.model.Student;
+import com.rosebrakoh.model.Role;
 
 @Repository
-public interface StudentRepository extends JpaRepository<Student, String>{
+public interface RoleRepository extends JpaRepository<Role, String>{
+	
+	Role findByName(String roleName);
 
 }

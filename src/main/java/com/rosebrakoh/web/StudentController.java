@@ -13,18 +13,17 @@ import com.rosebrakoh.service.StudentService;
 public class StudentController {
 	
 	@Autowired
-	private StudentService StudentService;
+	private StudentService studentService;
    
 	@GetMapping("/")
 	public String index(Model model) {
-		model.addAttribute("students", StudentService.findAll());
+		model.addAttribute("students", studentService.findAll());
 		model.addAttribute("student", new Student());
 		return "students";
 	}
 	
 	@PostMapping("/students")
 	public String addStudent(Student student) {
-		StudentService.save(student);
-		return "redirect:/";
+		return studentService.save(student);
 	}
 }

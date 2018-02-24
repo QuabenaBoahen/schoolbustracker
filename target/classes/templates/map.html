@@ -84,6 +84,10 @@
           zoom: 4,
           center: currentLocation
         });
+        
+        //zoom into the location of the bus
+        map.setZoom(10);
+        
         var marker = new google.maps.Marker({
           position: currentLocation,
           map: map,
