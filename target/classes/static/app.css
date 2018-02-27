@@ -4,6 +4,30 @@ body {
     font-family: 'varela round', sans-serif;
 }
 
+.flash {
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    font-size: 1.4rem;
+}
+
+.flash.success {
+    color: #33b86c !important;
+  background-color: #ccedda !important;
+  border-color: #7ad19f !important;
+}
+
+.flash.failure {
+    background-color: #ac4343 !important;
+    color: #f2e2e2 !important;
+    border-color:#dca7a7 !important;
+}
+
+.alert {
+  border-radius: 0px;
+}
+
 nav {
     background-color: #896bb3;
     box-shadow: none;

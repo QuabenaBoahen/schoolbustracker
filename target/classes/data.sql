@@ -8,4 +8,4 @@ insert into role(id, name) values('1', 'ROLE_STUDENT');
 insert into role(id, name) values('2', 'ROLE_PARENT');
 
 insert into user(id, is_account_non_expired, is_account_non_locked, is_credentials_non_expired, is_enabled, 
-	is_verified, password, user_id, role_id, username) values('1', true, true, true, true, true, 'pass123', '1', '1', 'parent');
+	is_verified, password, user_id, role_id, username) values('1', true, true, true, true, true, 'pass123', '1', '2', 'parent');
