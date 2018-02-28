@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="icon" th:href="@{/favicon.png}" />
+
+    <link rel="stylesheet" th:href="@{/vendor/materialize/css/materialize.css}" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" th:href="@{/app.css}" />
+    <style>
+    body {
+    background-image: linear-gradient(100deg, #155799, #159957);
+     }
+    </style>
+
+    <title>busTracking System | 403 Error</title>
+</head>
+<body>
+    <div class="search-bar container">
+        <div class="row">
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <div class="col s12 panel-body">
+            <section class="col s8 offset-m4 offset-s4">
+             <h3 style="color:red;"> Unauthorized Access </h3>
+            </section>
+            </div>
+        </div>
+    </div>
+
+<script th:src="@{/vendor/jquery/jquery-1.11.3.js}"></script>
+<script th:src="@{/vendor/materialize/js/materialize.js}"></script>
+<script th:src="@{/app.js}"></script>
+</body>
+</html>

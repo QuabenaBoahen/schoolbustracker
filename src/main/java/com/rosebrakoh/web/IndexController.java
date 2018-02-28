@@ -10,5 +10,10 @@ public class IndexController {
 	public String login() {
 		return "login";
 	}
+	
+	@GetMapping("/403_error")
+	public String _403() {
+		return "403";
+	}
 
 }

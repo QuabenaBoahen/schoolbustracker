@@ -64,14 +64,12 @@
 									<tbody>
 										<tr th:each="student : ${students}">
 											<input type="hidden" id="idField"/>
-											<input type="hidden" id="detailsField"/>
-											<input type="hidden" id="petitionedBody"/>
 											<td th:text="${student.firstName + ' ' + student.lastName + ' ' + student.otherNames}">Full name</td>
 											<td th:text="${student.studentClass}">class</td>
 											<td th:text="${student.dob}">dob</td>
 											<td th:text="${student.parent.lastName + ' ' + student.parent.firstName}">parent</td>
 											<td class="actions"><a href="#"
-												class="on-default edit-petition-body" data-toggle="modal" data-target="#studentModal">
+												class="on-default edit" data-toggle="modal" data-target="#studentModal">
 												<i class="material-icons">edit</i></a></td>
 										</tr> 
 									</tbody>
@@ -154,6 +152,79 @@
                              </div>
     </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
+      
+      <div class="modal fade" id="studentModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title title" style="color: #07689F;">Add New Student</h4>
+      </div>
+      <br/>
+          <form th:action="@{/students}" method="post" th:object="${student}">
+            <div class="table-responsive">
+				<table class="table table-borderless" style="border:none !important;">
+				           <tr>
+				           <input type="hidden" id="typeId" name="id"/>
+				           </tr>
+							  <tr>
+							  <td>
+							  <input type="text" class="form-control clear firstname" placeholder="First Name of student .." 
+							  id="firstname" th:field="*{firstName}" required /> 
+							  </td>
+					           </tr>
+					           <tr>
+							  <td>
+							  <input type="text" class="form-control clear lastname" placeholder="Last Name of student .." 
+							  id="lastname" th:field="*{lastName}" required /> 
+							  </td>
+					           </tr>
+					           <tr>
+							  <td>
+							  <input type="text" class="form-control clear othernames" placeholder="Other Names of student .." 
+							  id="othernames" th:field="*{otherNames}"/> 
+							  </td>
+					           </tr>
+					           <tr>
+							  <td>
+							  <input type="text" class="form-control clear studentClass" placeholder="Class of student .." 
+							  id="studentClass" th:field="*{studentClass}" required> 
+							  </td>
+					           </tr>
+					           <tr>
+							  <td>
+							  <input type="text" class="form-control clear dob" placeholder="DOB of student .." 
+							  id="dob" th:field="*{dob}" required> 
+							  </td>
+					           </tr>
+					           <tr>
+							  <td>
+							  <input type="text" class="form-control clear studentParent" placeholder="Parent username .." 
+							  id="studentParent" th:field="*{parent.user.username}" required> 
+							  </td>
+					           </tr>
+					           <tr>
+							  <td>
+							  <input type="text" class="form-control clear username" placeholder="Username of student .." 
+							  id="username" th:field="*{user.username}" required> 
+							  </td>
+					           </tr>
+					            <tr>
+							  <td>
+							  <input type="password" class="form-control clear password" placeholder="Password of student .." 
+							  id="password" th:field="*{user.password}" required> 
+							  </td>
+					           </tr>
+					         </table>	 
+			</div>
+		                   <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i> Save </button>
+                              </div>
+                              </form>
+                             </div>
+    </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
 <script th:src="@{/vendor/jquery/jquery-1.11.3.js}"></script>
 <script th:src="@{/bootstrap.min.js}"></script>
 <script th:src="@{/jquery-datatables-editable/jquery.dataTables.js}"></script> 
@@ -164,6 +235,20 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$('#datatable').dataTable();
+	
+	$("#datatable").on('click', '.edit', function(){
+		
+		$(".title").text("Update Student");
+		
+		var currentRow=$(this).closest('tr');
+		var id=currentRow.find("input:eq(0)").val();
+		var name=currentRow.find("td:eq(0)").text();
+		var studentClass=currentRow.find("td:eq(1)").text();
+		
+		$("#idField").val(id);
+		$("#firstname").text(name);
+		
+	});
 });
 </script>
 </body>

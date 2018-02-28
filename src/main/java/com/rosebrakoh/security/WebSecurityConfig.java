@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		http
 		.authorizeRequests()
 		.antMatchers("/h2-console/**").permitAll()
-		.antMatchers("/map").hasAnyRole("PARENT")
+		.antMatchers("/parents", "/users", "/students").hasAnyRole("ADMIN")
 		.anyRequest().authenticated()
 		.and()
 		.formLogin()
@@ -38,7 +38,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		.and()
 		.logout()
 		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-		.permitAll();
+		.permitAll()
+		.and()
+        .exceptionHandling()
+        .accessDeniedPage("/403_error");
 	}
 
 	@Override

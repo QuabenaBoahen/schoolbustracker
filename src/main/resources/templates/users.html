@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -22,15 +23,15 @@
                 <a href="#" data-activates="mobile-nav" class="button-collapse right"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                 <li><a th:href="@{/map}">Show Map</a></li>
-                    <li><a th:href="@{/}">Students</a></li>
-                    <li><a th:href="@{/parents}">Parents</a></li>
-                    <li class="active"><a th:href="@{/users}">Users</a></li>
+                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/}">Students</a></li>
+                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/parents}">Parents</a></li>
+                    <li class="active" sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/users}">Users</a></li>
                 </ul>
                 <ul id="mobile-nav" class="side-nav">
                 <li><a th:href="@{/map}">Show Map</a></li>
-                    <li><a th:href="@{/}">Students</a></li>
-                    <li><a th:href="@{/parents}">Parents</a></li>
-                    <li class="active"><a th:href="@{/users}">Users</a></li>
+                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/}">Students</a></li>
+                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/parents}">Parents</a></li>
+                    <li class="active" sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/users}">Users</a></li>
                 </ul>
             </div>
         </nav>
@@ -57,10 +58,10 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:each="user : ${users}">
+										<tr th:each="user, userStat : ${users}">
 											<td th:text="${user.id}">id</td>
 											<td th:text="${user.username}">Username</td>
-											<td th:text="${user.userId}">Role</td>
+											<td th:text="${user.role.name}">Role</td>
 										</tr> 
 									</tbody>
 								</table>
