@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.thymeleaf.util.StringUtils;
 
 import com.rosebrakoh.model.Parent;
 import com.rosebrakoh.service.ParentService;
@@ -23,8 +25,11 @@ public class ParentController {
 	}
 	
 	@PostMapping("/parents")
-	public String saveParent(Parent parent) {
-		return parentService.save(parent);
+	public String saveParent(Parent parent, @RequestParam(value="id", required=false) String id) {
+		if(StringUtils.isEmpty(id)) {
+			return parentService.save(parent);
+		}
+		return parentService.saveExisting(parent);
 	}
 
 }

@@ -33,5 +33,13 @@ public class ParentService {
 		userService.save(user);
 		return "redirect:/parents";
 	}
+	
+	/*
+	 * fix controller later and use one generic save method
+	 */
+	public String saveExisting(Parent parent) {
+		parentRepository.save(parent);
+		return "redirect:/parents";
+	}
 
 }
