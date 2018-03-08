@@ -19,9 +19,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/gifs/**", "/icons/**", "/jquery-datatables-editable/**",
-				"/vendor/**", "/app.css", "/app.js", "/bootbox.min.js", "/bootstrap.min.js", 
-				"/bootstrap.min.css", "/favicon.png");
+		web.ignoring().antMatchers("/icons/**", "/jquery-datatables-editable/**",
+				"/vendor/**", "/app.css", "/app.js", "/bootbox.min.js", "/favicon.png");
 	}
 	
 	@Override
@@ -42,6 +41,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		.and()
         .exceptionHandling()
         .accessDeniedPage("/403_error");
+        /*.and()
+        .csrf().disable()
+        .headers().frameOptions().disable();*/
 	}
 
 	@Override

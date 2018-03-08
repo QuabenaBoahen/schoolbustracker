@@ -7,47 +7,54 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
     <link rel="icon" th:href="@{/favicon.png}" />
 
-    <link rel="stylesheet" th:href="@{/bootstrap.min.css}" />
+    <link rel="icon" th:href="@{/favicon.png}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
     <link th:href="@{/jquery-datatables-editable/datatables.css}" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/vendor/materialize/css/materialize.css}" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.dataTables.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" th:href="@{/app.css}" />
 
     <title>Bus Tracking System | Users</title>
 </head>
 <body>
-    <div class="navbar-fixed">
-        <nav>
-            <div class="container">
-                <a th:href="@{/}" class="brand-logo">busTracking</a>
-                <a href="#" data-activates="mobile-nav" class="button-collapse right"><i class="material-icons">menu</i></a>
-                <ul class="right hide-on-med-and-down">
-                <li><a th:href="@{/map}">Show Map</a></li>
-                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/}">Students</a></li>
-                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/parents}">Parents</a></li>
-                    <li class="active" sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/users}">Users</a></li>
-                </ul>
-                <ul id="mobile-nav" class="side-nav">
-                <li><a th:href="@{/map}">Show Map</a></li>
-                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/}">Students</a></li>
-                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/parents}">Parents</a></li>
-                    <li class="active" sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/users}">Users</a></li>
-                </ul>
-            </div>
-        </nav>
-    </div>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarsExample04">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+            <a class="nav-link" th:href="@{/students}">Student</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/map}">Map</a>
+          </li>
+          <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+            <a class="nav-link" th:href="@{/parents}">Parents</a>
+          </li>
+          <li class="nav-item active" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+            <a class="nav-link" th:href="@{/users}">Users</a>
+          </li>
+        </ul>
+        <div class="pull-right">
+         <a class="nav-link" th:href="@{/logout}"><i class="fa fa-sign-out"></i></a>
+        </div> 
+      </div>
+    </nav>
     <div class="search-bar container">
         <div class="row">
-            <div class="col s12">
+            <div class="col-sm">
             <br/>
                     <div class="input-field">
                         <h3>Details of Users</h3>
                     </div>
             </div>
         </div>
-    </div>
-    <div class="gifs container">
-        <div class="row">
+    </div><br/>
+    <div class="container">
+        <div class="col-sm">
             <form id="" method="post">
 								<table class="table table-bordered table-striped" id="datatable">
 									<thead>
@@ -69,13 +76,10 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
         </div>
     </div>
 
-<script th:src="@{/vendor/jquery/jquery-1.11.3.js}"></script>
-<script th:src="@{/bootstrap.min.js}"></script>
-<script th:src="@{/jquery-datatables-editable/jquery.dataTables.js}"></script> 
-<script th:src="@{/jquery-datatables-editable/dataTables.bootstrap.js}"></script>
-<script th:src="@{/jquery-datatables-editable/datatables.editable.init.js}"></script>
-<script th:src="@{/vendor/materialize/js/materialize.js}"></script>
-<script th:src="@{/app.js}"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$('#datatable').dataTable();

@@ -25,5 +25,13 @@ public class UserService {
 	public List<User> findAll(){
 		return userRepository.findAll();
 	}
+	
+	public Integer countParentsWithUsername(String username) {
+		return userRepository.findAllByUsername(username).size();
+	}
+	
+	public User findUserById(String id) {
+		return userRepository.findOne(id);
+	}
 
 }

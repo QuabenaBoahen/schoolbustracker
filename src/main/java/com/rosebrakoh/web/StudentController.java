@@ -15,8 +15,8 @@ public class StudentController {
 	@Autowired
 	private StudentService studentService;
    
-	@GetMapping("/")
-	public String index(Model model) {
+	@GetMapping("/students")
+	public String viewStudents(Model model) {
 		model.addAttribute("students", studentService.findAll());
 		model.addAttribute("student", new Student());
 		return "students";
@@ -24,6 +24,7 @@ public class StudentController {
 	
 	@PostMapping("/students")
 	public String addStudent(Student student) {
-		return studentService.save(student);
+		studentService.save(student);
+		return "redirect:/students";
 	}
 }

@@ -6,50 +6,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <link rel="icon" th:href="@{/favicon.png}" />
-
-    <link rel="stylesheet" th:href="@{/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
     <link th:href="@{/jquery-datatables-editable/datatables.css}" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/vendor/materialize/css/materialize.css}" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.dataTables.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" th:href="@{/app.css}" />
 
     <title>Bus Tracking System | Students</title>
 </head>
 <body>
-    <div class="navbar-fixed">
-        <nav>
-            <div class="container">
-                <a th:href="@{/}" class="brand-logo">busTracking</a>
-                <a href="#" data-activates="mobile-nav" class="button-collapse right"><i class="material-icons">menu</i></a>
-                <ul class="right hide-on-med-and-down">
-                <li><a th:href="@{/map}">Show Map</a></li>
-                    <li class="active"><a th:href="@{/}">Students</a></li>
-                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/parents}">Parents</a></li>
-                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/users}">Users</a></li>
-                    <li><a th:href="@{/logout}"><i class="material-icons">menu</i></a></li>
-                </ul>
-                <ul id="mobile-nav" class="side-nav">
-                <li><a th:href="@{/map}">Show Map</a></li>
-                    <li class="active"><a th:href="@{/}">Students</a></li>
-                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/parents}">Parents</a></li>
-                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/users}">Users</a></li>
-                </ul>
-            </div>
-        </nav>
-    </div>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarsExample04">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+            <a class="nav-link" th:href="@{/students}">Student</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/map}">Map</a>
+          </li>
+          <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+            <a class="nav-link" th:href="@{/parents}">Parents</a>
+          </li>
+          <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+            <a class="nav-link" th:href="@{/users}">Users</a>
+          </li>
+        </ul>
+        <div class="pull-right">
+         <a class="nav-link" th:href="@{/logout}"><i class="fa fa-sign-out"></i></a>
+        </div> 
+      </div>
+    </nav>
+    
     <div class="search-bar container">
         <div class="row">
-            <div class="col s12">
+            <div class="col-sm">
             <br/>
-              <a href="#" class="btn-large" data-toggle="modal" data-target="#studentModal">Add Student</a><br/>
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#studentModal">
+            New Student</button><br/><br/> 
                     <div class="input-field">
                         <h3>Details of Students</h3>
                     </div>
             </div>
         </div>
-    </div>
-    <div class="gifs container">
-        <div class="row">
+    </div><br/>
+    <div class="container">
+        <div class="col-sm">
             <form id="" method="post">
 								<table class="table table-bordered table-striped" id="datatable">
 									<thead>
@@ -63,36 +69,39 @@
 									</thead>
 									<tbody>
 										<tr th:each="student : ${students}">
-											<input type="hidden" id="idField"/>
+											<input type="hidden" th:value="${student.id}"/> 
+											<input type="hidden" th:value="${student.firstName}"/> 
+											<input type="hidden" th:value="${student.lastName}"/> 
+											<input type="hidden" th:value="${student.otherNames}"/> 
+											<input type="hidden" th:value="${student.parent.id}"/>
 											<td th:text="${student.firstName + ' ' + student.lastName + ' ' + student.otherNames}">Full name</td>
 											<td th:text="${student.studentClass}">class</td>
 											<td th:text="${student.dob}">dob</td>
 											<td th:text="${student.parent.lastName + ' ' + student.parent.firstName}">parent</td>
 											<td class="actions"><a href="#"
 												class="on-default edit" data-toggle="modal" data-target="#studentModal">
-												<i class="material-icons">edit</i></a></td>
+												<i class="fa fa-edit"></i></a></td>
 										</tr> 
 									</tbody>
-									<input type="hidden" id="idFieldTopass" name="id"/> 
-									<input type="hidden" id="victoriousFlagStatus" name="victoriousFlagStatus"/>
 								</table>
 								</form>
         </div>
     </div>
-
+  
   <div class="modal fade" id="studentModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title title" style="color: #07689F;">Add New Student</h4>
+    <div class="modal-header">
+        <h5 class="modal-title title" style="color: #07689F;">Add New Student</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <br/>
-          <form th:action="@{/students}" method="post" th:object="${student}">
+          <form th:action="@{/students}" th:object="${student}" method="post" >
             <div class="table-responsive">
-				<table class="table table-borderless" style="border:none !important;">
+				<table class="table table-borderless">
 				           <tr>
-				           <input type="hidden" id="typeId" name="id"/>
+				          <input type="hidden" id="typeId" name="id"/>
 				           </tr>
 							  <tr>
 							  <td>
@@ -124,19 +133,19 @@
 							  id="dob" th:field="*{dob}" required> 
 							  </td>
 					           </tr>
-					           <tr>
+					           <tr class="parent">
 							  <td>
 							  <input type="text" class="form-control clear studentParent" placeholder="Parent username .." 
 							  id="studentParent" th:field="*{parent.user.username}" required> 
 							  </td>
 					           </tr>
-					           <tr>
+					           <tr class="uname">
 							  <td>
 							  <input type="text" class="form-control clear username" placeholder="Username of student .." 
 							  id="username" th:field="*{user.username}" required> 
 							  </td>
 					           </tr>
-					            <tr>
+					            <tr class="pword">
 							  <td>
 							  <input type="password" class="form-control clear password" placeholder="Password of student .." 
 							  id="password" th:field="*{user.password}" required> 
@@ -145,93 +154,18 @@
 					         </table>	 
 			</div>
 		                   <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
-        <button type="submit" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i> Save </button>
+        <button type="button" class="btn btn-default exit" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+        <button type="submit" class="btn btn-primary save"><i class="fa fa-save" aria-hidden="true"></i> Save </button>
                               </div>
                               </form>
                              </div>
     </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
-      
-      <div class="modal fade" id="studentModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-md" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title title" style="color: #07689F;">Add New Student</h4>
-      </div>
-      <br/>
-          <form th:action="@{/students}" method="post" th:object="${student}">
-            <div class="table-responsive">
-				<table class="table table-borderless" style="border:none !important;">
-				           <tr>
-				           <input type="hidden" id="typeId" name="id"/>
-				           </tr>
-							  <tr>
-							  <td>
-							  <input type="text" class="form-control clear firstname" placeholder="First Name of student .." 
-							  id="firstname" th:field="*{firstName}" required /> 
-							  </td>
-					           </tr>
-					           <tr>
-							  <td>
-							  <input type="text" class="form-control clear lastname" placeholder="Last Name of student .." 
-							  id="lastname" th:field="*{lastName}" required /> 
-							  </td>
-					           </tr>
-					           <tr>
-							  <td>
-							  <input type="text" class="form-control clear othernames" placeholder="Other Names of student .." 
-							  id="othernames" th:field="*{otherNames}"/> 
-							  </td>
-					           </tr>
-					           <tr>
-							  <td>
-							  <input type="text" class="form-control clear studentClass" placeholder="Class of student .." 
-							  id="studentClass" th:field="*{studentClass}" required> 
-							  </td>
-					           </tr>
-					           <tr>
-							  <td>
-							  <input type="text" class="form-control clear dob" placeholder="DOB of student .." 
-							  id="dob" th:field="*{dob}" required> 
-							  </td>
-					           </tr>
-					           <tr>
-							  <td>
-							  <input type="text" class="form-control clear studentParent" placeholder="Parent username .." 
-							  id="studentParent" th:field="*{parent.user.username}" required> 
-							  </td>
-					           </tr>
-					           <tr>
-							  <td>
-							  <input type="text" class="form-control clear username" placeholder="Username of student .." 
-							  id="username" th:field="*{user.username}" required> 
-							  </td>
-					           </tr>
-					            <tr>
-							  <td>
-							  <input type="password" class="form-control clear password" placeholder="Password of student .." 
-							  id="password" th:field="*{user.password}" required> 
-							  </td>
-					           </tr>
-					         </table>	 
-			</div>
-		                   <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
-        <button type="submit" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i> Save </button>
-                              </div>
-                              </form>
-                             </div>
-    </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-<script th:src="@{/vendor/jquery/jquery-1.11.3.js}"></script>
-<script th:src="@{/bootstrap.min.js}"></script>
-<script th:src="@{/jquery-datatables-editable/jquery.dataTables.js}"></script> 
-<script th:src="@{/jquery-datatables-editable/dataTables.bootstrap.js}"></script>
-<script th:src="@{/jquery-datatables-editable/datatables.editable.init.js}"></script>
-<script th:src="@{/vendor/materialize/js/materialize.js}"></script>
-<script th:src="@{/app.js}"></script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$('#datatable').dataTable();
@@ -239,15 +173,69 @@ $(document).ready(function(){
 	$("#datatable").on('click', '.edit', function(){
 		
 		$(".title").text("Update Student");
+		$(".save").text("Update");
 		
 		var currentRow=$(this).closest('tr');
 		var id=currentRow.find("input:eq(0)").val();
-		var name=currentRow.find("td:eq(0)").text();
+		var firstName=currentRow.find("input:eq(1)").val();
+		var lastName=currentRow.find("input:eq(2)").val();
+		var otherNames=currentRow.find("input:eq(3)").val();
+		var idOfParent=currentRow.find("input:eq(4)").val();
 		var studentClass=currentRow.find("td:eq(1)").text();
+		var dob=currentRow.find("td:eq(2)").text();
 		
-		$("#idField").val(id);
-		$("#firstname").text(name);
+		$(".uname").hide();
+		$(".pword").hide();
 		
+		//remove required attribute on fields if its an update
+		$(".username").removeAttr("required");
+		$(".password").removeAttr("required");
+		
+		$.ajax({
+            method: "GET",
+            url: "/get-parent-username",
+            data: { id: idOfParent},
+            success: function(data){
+            	$(".studentParent").val(data);   	
+            },
+            error: function(e){
+            	
+            }
+        });
+		
+		$("#typeId").val(id); 
+		$(".firstname").val(firstName);
+		$(".lastname").val(lastName);
+		$(".othernames").val(otherNames);
+		$(".studentClass").val(studentClass);
+		$(".dob").val(dob);
+		
+	});
+	
+	$(".studentParent").on('blur', function(){
+		var parentUsername = $(".studentParent").val();
+		$.ajax({
+            method: "GET",
+            url: "/verify-parent-username",
+            data: { username: parentUsername},
+            success: function(data){
+            	if(data < 1){
+            		alert("Username of parent doesn't exist. Please enter a " +
+            				"correct username of students's parent");
+            		$(".studentParent").text("vbcvb");
+            		return false;
+            	}else{
+                	return true;
+            	}     	
+            },
+            error: function(e){
+            	
+            }
+        });
+	});
+	
+	$(".exit").on('click', function(){
+		location.reload(true);
 	});
 });
 </script>

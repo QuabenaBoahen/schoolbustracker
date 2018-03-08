@@ -7,48 +7,56 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
     <link rel="icon" th:href="@{/favicon.png}" />
 
-    <link rel="stylesheet" th:href="@{/bootstrap.min.css}" />
+    <link rel="icon" th:href="@{/favicon.png}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
     <link th:href="@{/jquery-datatables-editable/datatables.css}" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/vendor/materialize/css/materialize.css}" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.dataTables.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" th:href="@{/app.css}" />
 
     <title>Bus Tracking System | Parents</title>
 </head>
 <body>
-    <div class="navbar-fixed">
-        <nav>
-            <div class="container">
-                <a th:href="@{/}" class="brand-logo">busTracking</a>
-                <a href="#" data-activates="mobile-nav" class="button-collapse right"><i class="material-icons">menu</i></a>
-                <ul class="right hide-on-med-and-down">
-                <li><a th:href="@{/map}">Show Map</a></li>
-                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/}">Students</a></li>
-                    <li class="active" sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/parents}">Parents</a></li>
-                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/users}">Users</a></li>
-                </ul>
-                <ul id="mobile-nav" class="side-nav">
-                <li><a th:href="@{/map}">Show Map</a></li>
-                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/}">Students</a></li>
-                    <li class="active" sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/parents}">Parents</a></li>
-                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/users}">Users</a></li>
-                </ul>
-            </div>
-        </nav>
-    </div>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarsExample04">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+            <a class="nav-link" th:href="@{/students}">Student</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/map}">Map</a>
+          </li>
+          <li class="nav-item active" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+            <a class="nav-link" th:href="@{/parents}">Parents</a>
+          </li>
+          <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+            <a class="nav-link" th:href="@{/users}">Users</a>
+          </li>
+        </ul>
+        <div class="pull-right">
+         <a class="nav-link" th:href="@{/logout}"><i class="fa fa-sign-out"></i></a>
+        </div> 
+      </div>
+    </nav>
     <div class="search-bar container">
         <div class="row">
-            <div class="col s12">
+            <div class="col-sm">
             <br/>
-              <a href="#" class="btn-large" data-toggle="modal" data-target="#studentModal">Add Parent</a><br/>
+              <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#parentModal">
+            New Parent</button><br/><br/> 
                     <div class="input-field">
                         <h3>Details of Parents</h3>
                     </div>
             </div>
         </div>
-    </div>
-    <div class="gifs container">
-        <div class="row">
+    </div><br/>
+    <div class="container">
+        <div class="col-sm">
             <form id="" method="post">
 								<table class="table table-bordered table-striped" id="datatable">
 									<thead>
@@ -60,31 +68,30 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 									</thead>
 									<tbody>
 										<tr th:each="parent : ${parents}">
-											<input type="hidden" id="idField"/>
-											<input type="hidden" id="detailsField"/>
-											<input type="hidden" id="petitionedBody"/>
+											<input type="hidden" th:value="${parent.id}"/>
+											<input type="hidden" th:value="${parent.firstName}"/>
+											<input type="hidden" th:value="${parent.lastName}"/>
 											<td th:text="${parent.id}">id</td>
 											<td th:text="${parent.firstName + ' ' + parent.lastName}">Full name</td>
 											<td class="actions"><a href="#"
-												class="on-default edit-petition-body" data-toggle="modal" data-target="#studentModal">
-												<i class="material-icons">edit</i></a></td>
+												class="on-default edit-petition-body edit" data-toggle="modal" data-target="#parentModal">
+												<i class="fa fa-edit"></i></a></td>
 										</tr> 
 									</tbody>
-									<input type="hidden" id="idFieldTopass" name="id"/> 
-									<input type="hidden" id="victoriousFlagStatus" name="victoriousFlagStatus"/>
 								</table>
 								</form>
         </div>
     </div>
 
-  <div class="modal fade" id="studentModal" tabindex="-1" role="dialog">
+  <div class="modal fade" id="parentModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title title" style="color: #07689F;">Add New Parent</h4>
+       <div class="modal-header">
+        <h5 class="modal-title title" style="color: #07689F;">Add New Parent</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <br/>
           <form th:action="@{/parents}" method="post" th:object="${parent}">
             <div class="table-responsive">
 				<table class="table table-borderless" style="border:none !important;">
@@ -103,13 +110,13 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 							  id="lastname" th:field="*{lastName}" required /> 
 							  </td>
 					           </tr>
-					            <tr>
+					            <tr class="uname">
 							  <td>
 							  <input type="text" class="form-control clear username" placeholder="Username of parent .." 
 							  id="username" th:field="*{user.username}" required> 
 							  </td>
 					           </tr>
-					            <tr>
+					            <tr class="pword">
 							  <td>
 							  <input type="password" class="form-control clear password" placeholder="Password of parent .." 
 							  id="password" th:field="*{user.password}" required> 
@@ -118,23 +125,47 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 					         </table>	 
 			              </div>
 		                   <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
-        <button type="submit" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i> Save </button>
+        <button type="button" class="btn btn-default exit" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+        <button type="submit" class="btn btn-primary save"><i class="fa fa-save" aria-hidden="true"></i> Save </button>
                               </div>
                               </form>
                              </div>
     </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
-<script th:src="@{/vendor/jquery/jquery-1.11.3.js}"></script>
-<script th:src="@{/bootstrap.min.js}"></script>
-<script th:src="@{/jquery-datatables-editable/jquery.dataTables.js}"></script> 
-<script th:src="@{/jquery-datatables-editable/dataTables.bootstrap.js}"></script>
-<script th:src="@{/jquery-datatables-editable/datatables.editable.init.js}"></script>
-<script th:src="@{/vendor/materialize/js/materialize.js}"></script>
-<script th:src="@{/app.js}"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$('#datatable').dataTable();
+	
+$("#datatable").on('click', '.edit', function(){
+		
+	$(".title").text("Update Parent");
+	$(".save").text("Update");
+	
+	var currentRow=$(this).closest('tr');
+	var id=currentRow.find("input:eq(0)").val();
+	var firstName=currentRow.find("input:eq(1)").val();
+	var lastName=currentRow.find("input:eq(2)").val();
+	
+	$(".uname").hide();
+	$(".pword").hide();
+	
+	//remove required attribute on fields if its an update
+	$(".username").removeAttr("required");
+	$(".password").removeAttr("required");
+	
+	$("#typeId").val(id); 
+	$(".firstname").val(firstName);
+	$(".lastname").val(lastName);
+		
+	});
+	
+$(".exit").on('click', function(){
+	location.reload(true);
+});
 });
 </script>
 </body>

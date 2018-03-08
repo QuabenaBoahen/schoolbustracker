@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: Bus Tracking System for Schools
 Implementation-Version: 1.0-SNAPSHOT
-Built-By: fredbo
+Built-By: Work
 Implementation-Vendor-Id: com.rosebrakoh
-Build-Jdk: 1.8.0_161
+Build-Jdk: 1.8.0_92
 Implementation-URL: http://projects.spring.io/spring-boot/bustrackings
  ystem/
 Created-By: Maven Integration for Eclipse
