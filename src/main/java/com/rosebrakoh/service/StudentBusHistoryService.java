@@ -35,6 +35,7 @@ public class StudentBusHistoryService {
 	}
 	
 	public List<StudentBusHistory> saveBusBordingistory(List<StudentBusHistory> studentBusHistory){
+		Date date = new Date();
 		List<StudentBusHistory> history = new ArrayList<>();
 		if(studentBusHistory.isEmpty()) {
 		   return null;
@@ -44,7 +45,6 @@ public class StudentBusHistoryService {
 		 * -- first make sure bus boarding record is not empty
 		 */
 		if(!studentBusHistoryRepository.findAll().isEmpty()) {
-			Date date = new Date();
 			String todaysDate = date.toString().substring(0, 10);
 			log.info("eclipse " + todaysDate);
 			for(int i=0;i<studentBusHistory.size();i++) {
@@ -66,6 +66,9 @@ public class StudentBusHistoryService {
 		}else {
 			history=studentBusHistory;
 			log.info("Saving bus boarding history for the first time...");
+		    for(StudentBusHistory h: history) {
+		    	h.setDate(date.toString());
+		    }
 			studentBusHistoryRepository.save(history);
 		}
 		return history;

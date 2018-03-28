@@ -133,6 +133,17 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
           icon: 'icons/bus.ico'
         });
         
+      //get approximate location using lat and long
+      /*   $.ajax({
+      	  type: "GET", 
+            url: "https://maps.googleapis.com/maps/api/geocode/json?latlng="latitude","longitude"&key=AIzaSyDtZeGCdqb5KqAG5ROpf1d6oUdAVwzTpyc",
+            dataType: "json",
+            success: function(data) {
+            	alert("address " + data);
+                //$(".demo-card").html(data);
+            }
+      }); */
+        
         marker.addListener('click', function() {
         	alert("latitude: " + latitude + ", longitude: " + longitude)
           });
@@ -141,7 +152,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
  <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtZeGCdqb5KqAG5ROpf1d6oUdAVwzTpyc&callback=initMap">
    </script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
