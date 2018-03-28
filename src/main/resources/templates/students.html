@@ -7,6 +7,7 @@
 
     <link rel="icon" th:href="@{/favicon.png}" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.3/themes/swanky-purse/jquery-ui.css">
     <link th:href="@{/jquery-datatables-editable/datatables.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css"/>
@@ -34,6 +35,9 @@
           </li>
           <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN')">
             <a class="nav-link" th:href="@{/users}">Users</a>
+          </li>
+          <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+            <a class="nav-link" th:href="@{/bus-boarding-history}">Bus History</a>
           </li>
         </ul>
         <div class="pull-right">
@@ -97,7 +101,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-          <form th:action="@{/students}" th:object="${student}" method="post" >
+          <form th:action="@{/students}" th:object="${student}" method="post" id="studentForm">
             <div class="table-responsive">
 				<table class="table table-borderless">
 				           <tr>
@@ -105,14 +109,16 @@
 				           </tr>
 							  <tr>
 							  <td>
-							  <input type="text" class="form-control clear firstname" placeholder="First Name of student .." 
-							  id="firstname" th:field="*{firstName}" required /> 
+							  <label for="firstname" class="form-label"></label>
+							  <input type="text" class="form-control clear firstname required" placeholder="First Name of student .." 
+							  id="firstname" name="firstname" th:field="*{firstName}"/> 
 							  </td>
 					           </tr>
 					           <tr>
 							  <td>
-							  <input type="text" class="form-control clear lastname" placeholder="Last Name of student .." 
-							  id="lastname" th:field="*{lastName}" required /> 
+							  <label for="lastname" class="form-label"></label>
+							  <input type="text" class="form-control clear lastname required" placeholder="Last Name of student .." 
+							  id="lastname" name="lastname" th:field="*{lastName}"/> 
 							  </td>
 					           </tr>
 					           <tr>
@@ -123,39 +129,42 @@
 					           </tr>
 					           <tr>
 							  <td>
-							  <input type="text" class="form-control clear studentClass" placeholder="Class of student .." 
-							  id="studentClass" th:field="*{studentClass}" required> 
+							  <label for="studentClass" class="form-label"></label>
+							  <input type="text" class="form-control clear studentClass required" placeholder="Class of student .." 
+							  id="studentClass" name="studentClass" th:field="*{studentClass}"/> 
 							  </td>
 					           </tr>
 					           <tr>
 							  <td>
-							  <input type="text" class="form-control clear dob" placeholder="DOB of student .." 
-							  id="dob" th:field="*{dob}" required> 
+							  <label for="dob" class="form-label"></label>
+							  <input type="text" class="form-control clear dob required" placeholder="DOB of student .." 
+							  id="dob" name="dob" th:field="*{dob}"/> 
 							  </td>
 					           </tr>
 					           <tr class="parent">
 							  <td>
-							  <input type="text" class="form-control clear studentParent" placeholder="Parent username .." 
-							  id="studentParent" th:field="*{parent.user.username}" required> 
+							   <label for="studentParent" class="form-label"></label>
+							  <input type="text" class="form-control clear studentParent required" placeholder="Parent username .." 
+							  id="studentParent" name="studentParent" th:field="*{parent.user.username}"/> 
 							  </td>
 					           </tr>
 					           <tr class="uname">
 							  <td>
-							  <input type="text" class="form-control clear username" placeholder="Username of student .." 
-							  id="username" th:field="*{user.username}" required> 
+							  <input type="text" class="form-control clear username required" placeholder="Username of student .." 
+							  id="username" th:field="*{user.username}"/> 
 							  </td>
 					           </tr>
 					            <tr class="pword">
 							  <td>
-							  <input type="password" class="form-control clear password" placeholder="Password of student .." 
-							  id="password" th:field="*{user.password}" required> 
+							  <input type="password" class="form-control clear password required" placeholder="Password of student .." 
+							  id="password" th:field="*{user.password}" /> 
 							  </td>
 					           </tr>
 					         </table>	 
 			</div>
 		                   <div class="modal-footer">
         <button type="button" class="btn btn-default exit" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
-        <button type="submit" class="btn btn-primary save"><i class="fa fa-save" aria-hidden="true"></i> Save </button>
+        <button type="submit" class="btn btn-primary submit save"><i class="fa fa-save" aria-hidden="true"></i> Save </button>
                               </div>
                               </form>
                              </div>
@@ -163,12 +172,53 @@
       </div><!-- /.modal-dialog -->
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
+<script src="https://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+<script th:src="@{/jquery.validate.js}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$('#datatable').dataTable();
+	
+	$("#studentForm").validate({
+		errorClass: "ui-state-error",
+		rules: {
+			firstname: {
+				required: true
+			},
+			dob: {
+				required: true,
+				date: true
+			}
+		},
+		messages: {
+			firstname: {
+				required: "Firstname of student is required"
+			},
+			dob: {
+				required: "Please provide your date of birth",
+				date: "Please enter a valid date"
+			}
+		},
+		errorPlacement: function(error, element) {
+			if (element.is(":radio")) {
+				$("<br>").appendTo( element.parent().parent().find("label:first"));
+				error.appendTo( element.parent().parent().find("label:first"));
+			} else {
+				$("<br>").appendTo( element.parent().find("label"));
+				error.appendTo( element.parent().find( "label"));
+			}
+		}
+	});
+		
+	$("#dob").datepicker( {
+		changeMonth: true,
+		changeYear: true,
+		yearRange: "-100:+0",
+		maxDate: "+0D"
+	} );
+
 	
 	$("#datatable").on('click', '.edit', function(){
 		

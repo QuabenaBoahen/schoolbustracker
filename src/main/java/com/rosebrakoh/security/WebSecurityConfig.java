@@ -20,14 +20,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/icons/**", "/jquery-datatables-editable/**",
-				"/vendor/**", "/app.css", "/app.js", "/bootbox.min.js", "/favicon.png");
+				"/vendor/**", "/app.css", "/app.js", "/bootbox.min.js", "/favicon.png", "/jquery.validate.js");
 	}
 	
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http
 		.authorizeRequests()
-		.antMatchers("/h2-console/**").permitAll()
+		.antMatchers("/h2-console/**", "/all-students/**","/authenticate/**", 
+				"/save-bus-boarding/**", "/get-bus-boarding/**").permitAll()
 		.antMatchers("/parents", "/users", "/students").hasAnyRole("ADMIN")
 		.anyRequest().authenticated()
 		.and()
@@ -40,10 +41,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		.permitAll()
 		.and()
         .exceptionHandling()
-        .accessDeniedPage("/403_error");
-        /*.and()
-        .csrf().disable()
-        .headers().frameOptions().disable();*/
+        .accessDeniedPage("/403_error")
+        .and()
+        .csrf().disable();
+        /*.headers().frameOptions().disable();*/
 	}
 
 	@Override

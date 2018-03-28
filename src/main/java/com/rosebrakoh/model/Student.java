@@ -11,6 +11,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import org.hibernate.annotations.GenericGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +24,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name="student")
+@JsonIgnoreProperties
 public class Student implements Serializable{
 	
 	/**
@@ -35,6 +40,7 @@ public class Student implements Serializable{
 	private String otherNames;
 	private String studentClass;
 	private String dob;
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.DETACH, fetch=FetchType.LAZY)
 	private Parent parent;
 	@Transient

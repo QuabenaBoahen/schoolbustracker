@@ -1,5 +1,7 @@
 package com.rosebrakoh.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.rosebrakoh.model.Parent;
@@ -21,6 +23,14 @@ public class StudentService {
 	private UserService userService;
 	
 	public Iterable<Student> findAll(){
+		return studentRepository.findAll();
+	}
+	
+	public Student findById(String studentId) {
+		return studentRepository.findOne(studentId);
+	}
+	
+	public List<Student> getAllStudents(){
 		return studentRepository.findAll();
 	}
 	

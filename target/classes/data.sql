@@ -1,9 +1,17 @@
 insert into student(id, first_name, last_name, other_names, student_class, dob, parent_id) 
-values('1', 'Brakoh', 'Rose', '', 'J.H.S 3', '12/12/1995', '1');
+values('1', 'Rose', 'Brakoh', '', 'J.H.S 3', '12/12/1995', '1');
+
+insert into student(id, first_name, last_name, other_names, student_class, dob, parent_id) 
+values('2', 'Nketiah', 'Asiedu', 'Mohammed', 'J.H.S 1', '10/11/1998', '1');
+
+insert into student(id, first_name, last_name, other_names, student_class, dob, parent_id) 
+values('3', 'Koku', 'Anyidohu', '', 'J.H.S 2', '10/11/1978', '2');
 
 insert into parent(id, first_name, last_name) values('1', 'Donkoh', 'Akuah');
 
-insert into parent(id, first_name, last_name) values('2', 'Admin', 'Admin');
+insert into parent(id, first_name, last_name) values('2', 'Adams', 'Kofi');
+
+insert into parent(id, first_name, last_name) values('3', 'Admin', 'Admin');
 
 insert into role(id, name) values('1', 'ROLE_STUDENT');
 

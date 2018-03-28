@@ -37,6 +37,9 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
           <li class="nav-item active" sec:authorize="hasAnyRole('ROLE_ADMIN')">
             <a class="nav-link" th:href="@{/users}">Users</a>
           </li>
+          <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+            <a class="nav-link" th:href="@{/bus-boarding-history}">Bus History</a>
+          </li>
         </ul>
         <div class="pull-right">
          <a class="nav-link" th:href="@{/logout}"><i class="fa fa-sign-out"></i></a>

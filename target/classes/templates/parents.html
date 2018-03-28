@@ -6,9 +6,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <link rel="icon" th:href="@{/favicon.png}" />
-
-    <link rel="icon" th:href="@{/favicon.png}" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.3/themes/swanky-purse/jquery-ui.css">
     <link th:href="@{/jquery-datatables-editable/datatables.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css"/>
@@ -36,6 +35,9 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
           </li>
           <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN')">
             <a class="nav-link" th:href="@{/users}">Users</a>
+          </li>
+          <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+            <a class="nav-link" th:href="@{/bus-boarding-history}">Bus History</a>
           </li>
         </ul>
         <div class="pull-right">
@@ -92,7 +94,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-          <form th:action="@{/parents}" method="post" th:object="${parent}">
+          <form th:action="@{/parents}" method="post" th:object="${parent}" id="parentForm">
             <div class="table-responsive">
 				<table class="table table-borderless" style="border:none !important;">
 				           <tr>
@@ -100,26 +102,30 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 				           </tr>
 							  <tr>
 							  <td>
-							  <input type="text" class="form-control clear firstname" placeholder="First Name of parent .." 
-							  id="firstname" th:field="*{firstName}" required /> 
+							  <label for="firstname" class="form-label"></label>
+							  <input type="text" class="form-control clear firstname required" placeholder="First Name of parent .." 
+							  id="firstname" name="firstname" th:field="*{firstName}" /> 
 							  </td>
 					           </tr>
 					           <tr>
 							  <td>
-							  <input type="text" class="form-control clear lastname" placeholder="Last Name of parent .." 
-							  id="lastname" th:field="*{lastName}" required /> 
+							  <label for="lastname" class="form-label"></label>
+							  <input type="text" class="form-control clear lastname required" placeholder="Last Name of parent .." 
+							  id="lastname" name="lastname" th:field="*{lastName}"/> 
 							  </td>
 					           </tr>
 					            <tr class="uname">
 							  <td>
-							  <input type="text" class="form-control clear username" placeholder="Username of parent .." 
-							  id="username" th:field="*{user.username}" required> 
+							  <label for="username" class="form-label"></label>
+							  <input type="text" class="form-control clear username required" placeholder="Username of parent .." 
+							  id="username" name="username" th:field="*{user.username}"> 
 							  </td>
 					           </tr>
 					            <tr class="pword">
 							  <td>
-							  <input type="password" class="form-control clear password" placeholder="Password of parent .." 
-							  id="password" th:field="*{user.password}" required> 
+							  <label for="password" class="form-label"></label>
+							  <input type="password" class="form-control clear password required" placeholder="Password of parent .." 
+							  id="password" name="password" th:field="*{user.password}" minlength="4"> 
 							  </td>
 					           </tr>
 					         </table>	 
@@ -133,12 +139,27 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+<script src="https://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+<script th:src="@{/jquery.validate.js}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$('#datatable').dataTable();
+	
+	$("#parentForm").validate({
+		errorClass: "ui-state-error",
+		errorPlacement: function(error, element) {
+			if (element.is(":radio")) {
+				$("<br>").appendTo( element.parent().parent().find("label:first"));
+				error.appendTo( element.parent().parent().find("label:first"));
+			} else {
+				$("<br>").appendTo( element.parent().find("label"));
+				error.appendTo( element.parent().find( "label"));
+			}
+		}
+	});
 	
 $("#datatable").on('click', '.edit', function(){
 		

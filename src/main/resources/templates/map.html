@@ -14,7 +14,6 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.dataTables.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" th:href="@{/app.css}" />
-
     <title>Bus Tracking System | Buses Location</title>
 </head>
 <body>
@@ -36,6 +35,9 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
           <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN')">
             <a class="nav-link" th:href="@{/users}">Users</a>
           </li>
+          <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+            <a class="nav-link" th:href="@{/bus-boarding-history}">Bus History</a>
+          </li>
         </ul>
         <div class="pull-right">
          <a class="nav-link" th:href="@{/logout}"><i class="fa fa-sign-out"></i></a>
@@ -43,24 +45,52 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
       </div>
     </nav>
     <div class="search-bar container">
-        <div class="row">
-            <div class="col-sm">
-                <form action="#" method="get">
-                    <div class="input-field">
-                        <input name="q" type="search" placeholder="Search for a bus..." required="required" autocomplete="off"/>
-                        <i class="material-icons">search</i>
-                    </div>
-                </form>
-            </div>
-        </div>
     </div><br/>
     <div class="container">
+    <button type="button" class="btn btn-secondary pull-right" data-toggle="modal" data-target="#boardingRecord">
+            View Boarding Record for Today</button><br/><br/>
         <div class="row">
-            <h3>Current Location of Buses</h3><br/>
+            <h3>Current Location of School Bus</h3><br/>
     <div id="map"></div>
         </div>
-    </div>
-    
+    </div>    
+
+<div class="modal fade" id="boardingRecord" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title title" style="color: #07689F;">Bus Boarding Record for Today 
+        <span class="currentDate"></span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+          <form >
+            <div class="table-responsive">
+				<table class="table table-bordered table-striped" id="datatable">
+									<thead>
+										<tr>
+											<th>Name of Student</th>
+											<th>Class</th>
+											<th>Date & Time of Boarding</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="history : ${busHistory}">
+											<td th:text="${history.firstName + ' ' + history.lastName + ' ' + history.otherNames}">Full name</td>
+											<td th:text="${history.studentClass}">class</td>
+											<td th:text="${history.date}">date</td>
+										</tr> 
+									</tbody>
+								</table> 
+			                 </div>
+		                   <div class="modal-footer">
+                           <button type="button" class="btn btn-default exit" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+                           </div>
+                           </form>
+                           </div>
+    </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
 <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase-database.js"></script>
@@ -105,8 +135,6 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
         
         marker.addListener('click', function() {
         	alert("latitude: " + latitude + ", longitude: " + longitude)
-            //map.setZoom(8);
-            //map.setCenter(marker.getPosition());
           });
       } 
     </script>
@@ -117,5 +145,14 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script>
+          $(document).ready(function(){
+        	  
+        	$('#datatable').dataTable();
+        	var date=new Date();
+        	$(".currentDate").text("[ " + date.toDateString() + " ]");
+  
+		  });
+</script>
 </body>
 </html>

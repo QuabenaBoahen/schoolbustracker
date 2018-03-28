@@ -6,31 +6,35 @@
 
     <link rel="icon" th:href="@{/favicon.png}" />
 
-    <link rel="stylesheet" th:href="@{/vendor/materialize/css/materialize.css}" />
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link th:href="@{/jquery-datatables-editable/datatables.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.dataTables.min.css"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <link rel="stylesheet" th:href="@{/app.css}" />
     <style>
     body {
-    background-image: linear-gradient(100deg, #155799, #159957);
-     }
+    background-image: linear-gradient(100deg, #343a40, #343a40);
+    }
     </style>
 
-    <title>busTracking System | 403 Error</title>
+    <title>busTracking System | Unauthorized Access</title>
 </head>
 <body>
-    <div class="search-bar container">
+    <div class="container align-self-center">
         <div class="row">
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-            <div class="col s12 panel-body">
-            <section class="col s8 offset-m4 offset-s4">
-             <h3 style="color:red;"> Unauthorized Access </h3>
-            </section>
+        <br/><br/>
+            <div class="col-md-6 offset-md-3">
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <h4 style="color:red" class="text-center"> Unauthorized Access to Specified Resource </h4>
             </div>
         </div>
     </div>
 
-<script th:src="@{/vendor/jquery/jquery-1.11.3.js}"></script>
-<script th:src="@{/vendor/materialize/js/materialize.js}"></script>
-<script th:src="@{/app.js}"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 </body>
 </html>
