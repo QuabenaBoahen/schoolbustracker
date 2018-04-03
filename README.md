@@ -12,8 +12,8 @@ The project is deployed to heroku and can be accessed through [(https://schbustr
 You can download the mobile app here [(school bus tracker)](https://github.com/QuabenaBoahen/schoolbustracker/mobile/sikapa.apk) <br/>
 
 ## Login Credentials
-username: admin
-password: admin123
+### username: admin <br/>
+### password: admin123
 
 ## Contributors
 website:   [(Boahen Fred)](https://boaheninc.com)  <br/>
