@@ -7,8 +7,8 @@ GPS coordinates (latitude & longitude) are sent to a firebase database. The real
 [![Build Status](https://travis-ci.org/QuabenaBoahen/schoolbustracker.svg?branch=master)](https://travis-ci.org/QuabenaBoahen/schoolbustracker)
 
 ## Project Composition
-The project is in two forms; a web portal and an android mobile application. The web application is mainly for the administrative staff of the school while the mobile app will be mainly used by a teacher/driver in the school bus. <br/>
-The project is deployed to heroku and can be accessed through [http://schbustracker.heroku.com](http://schbustracker.herokuapp.com) <br/> 
+The project is in two forms; a web portal and an android mobile application. The web application is mainly for the administrative staff of the school while the mobile app will be used by a teacher/driver in the school bus. <br/>
+The project is deployed to heroku and can be accessed through [http://schbustracker.herokuapp.com](http://schbustracker.herokuapp.com) <br/> 
 You can download the mobile app here (https://github.com/QuabenaBoahen/schoolbustracker/blob/master/mobile/schbustracker.apk) <br/>
 ![Apk download image](https://github.com/QuabenaBoahen/schoolbustracker/blob/master/img/schbustracker.PNG) <br/>
 Click on the download to get the APK and install on your android device
