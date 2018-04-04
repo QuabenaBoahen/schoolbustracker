@@ -8,16 +8,16 @@ GPS coordinates (latitude & longitude) are sent to a firebase database. The real
 
 ## Project Composition
 The project is in two forms; a web portal and an android mobile application. The web application is mainly for the administrative staff of the school while the mobile app will be mainly used by a teacher/driver in the school bus. <br/>
-The project is deployed to heroku and can be accessed through [(https://schbustracker.heroku.com)](http://schbustracker.herokuapp.com) <br/> 
-You can download the mobile app here [(school bus tracker)](https://github.com/QuabenaBoahen/schoolbustracker/mobile/sikapa.apk) <br/>
+The project is deployed to heroku and can be accessed through [http://schbustracker.heroku.com](http://schbustracker.herokuapp.com) <br/> 
+You can download the mobile app here [school bus tracker](https://github.com/QuabenaBoahen/schoolbustracker/mobile/sikapa.apk) <br/>
 
 ## Login Credentials
-#### username: admin <br/>
+#### username: admin 
 #### password: admin123
 
 ## Contributors
-website:   [(Boahen Fred)](https://boaheninc.com)  <br/>
-github:    [(Boahen Fred)](https://github.com/quabenaboahen) <br/>
-bitbucket: [(Boahen Fred)](https://bitbucket.com/quabenaboahen)
+website:   [https://boaheninc.com](https://boaheninc.com)  <br/>
+github:    [https://github.com/quabenaboahen](https://github.com/quabenaboahen) <br/>
+bitbucket: [https://bitbucket.com/quabenaboahen](https://bitbucket.com/quabenaboahen)
 
 
