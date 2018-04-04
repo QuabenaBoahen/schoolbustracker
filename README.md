@@ -18,7 +18,7 @@ Click on the download to get the APK and install on your android device
 #### password: admin123
 
 ## Contributors
-name:  ### Boahen Fred <br/>
+name:       Boahen Fred <br/>
 website:   [https://boaheninc.com](https://boaheninc.com)  <br/>
 github:    [https://github.com/quabenaboahen](https://github.com/quabenaboahen) <br/>
 bitbucket: [https://bitbucket.com/quabenaboahen](https://bitbucket.com/quabenaboahen)
