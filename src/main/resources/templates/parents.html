@@ -83,6 +83,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 								</table>
 								</form>
         </div>
+        <input type="button" id="cl" value="print a div!" />
     </div>
 
   <div class="modal fade" id="parentModal" tabindex="-1" role="dialog">
@@ -187,6 +188,28 @@ $("#datatable").on('click', '.edit', function(){
 $(".exit").on('click', function(){
 	location.reload(true);
 });
+
+/* function printDiv(divName) {
+    var printContents = document.getElementById(divName).innerHTML;
+    var originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+
+    window.print();
+
+    document.body.innerHTML = originalContents;
+} */
+
+$("#cl").on('click', function(){
+	var printContents = document.getElementById("form1").innerHTML;
+    var originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+
+    window.print();
+
+    document.body.innerHTML = originalContents;
+});
+
+
 });
 </script>
 </body>
