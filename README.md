@@ -19,7 +19,7 @@ Click on the download to get the APK and install on your android device
 
 ## Contributors
 name:       Boahen Fred <br/>
-website:   [https://boaheninc.com](https://boaheninc.com)  <br/>
+website:   [http://quabenaboahen.com](https://quabenaboahen.com)  <br/>
 github:    [https://github.com/quabenaboahen](https://github.com/quabenaboahen) <br/>
 bitbucket: [https://bitbucket.com/quabenaboahen](https://bitbucket.com/quabenaboahen)
 
